@@ -33,7 +33,6 @@ class Rgistration(View):
                                                         'error': error})
 
 
-
 def index(request):
     room = request.POST.get('room-name')
     if room is not None:
@@ -41,10 +40,10 @@ def index(request):
     return render(request, 'chat/index.html', { 'room': room})
 
 
-
-
-def room ( request , room_name ):
-    return render ( request , 'chat/room.html' , {
-        'room_name_json' : mark_safe ( json . dumps ( room_name ))
-    })
-
+def room (request, room_name ):
+    if room_name:
+        user = request.user
+        return render(request, 'chat/room.html', {'room_name_json': mark_safe(json.dumps(room_name)),
+                                              'username': user})
+    else:
+        redirect('index')

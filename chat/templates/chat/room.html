@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
+    <h1 align="center">Hello {{ username }}!</h1>
+    <p id="chat-log" align="center"></p><br/>
+    <input id="chat-message-input" type="text"><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 
 <script>
     var roomName = {{ room_name_json }};
-
+    var username = "{{username}}"; //todo 'username in all chat are the same'
+    console.log(roomName);
+    console.log(username);
     var chatSocket = new WebSocket(
         'ws://' + window.location.host +
         '/chat/' + roomName + '/');
@@ -17,7 +19,8 @@
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        text = "<p>"+username+"</p>"+"<h5>" + message + "</h5>"
+        $('#chat-log').append(text)
     };
 
     chatSocket.onclose = function(e) {
