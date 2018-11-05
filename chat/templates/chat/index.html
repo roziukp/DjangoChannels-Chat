@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-    <form method="post">
+    <form method="post" id="user-chat-form" action="{% url 'index'  %}">
         {% csrf_token %}
-        <label for="username">User name:</label>
-        <input type="text" id="username" name="username" placeholder="Input your chat-name">
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" placeholder="Inpute your name...">
+        <label for="chat-room">Chat-room: </label>
+        <input type="text" id="chat-room" name="room-name" placeholder="Input chat name...">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
 {% endblock %}
